@@ -5,19 +5,13 @@ account_id="e7ba07fb5b7b19ad68a4607943793353"
 zone_id="2b00a637e3e451adb22f42e2afc84251"
 routes = [
   "*internationalbudget.org/letter-from-our-executive-director-on-the-conflict-in-ukraine",
-  "*internationalbudget.org/open-budget-survey",
-  "*internationalbudget.org/open-budget-survey/roadmap-to-61",
-  "*internationalbudget.org/open-budget-survey/a-note-on-russias-performance-on-the-open-budget-index",
-  "*internationalbudget.org/open-budget-survey/rankings",
-  "*internationalbudget.org/open-budget-survey/reports",
-  "*internationalbudget.org/open-budget-survey/open-budget-survey-*",
+  "*internationalbudget.org/open-budget-survey*",
   "*internationalbudget.org/sites/default*",
   "*internationalbudget.org/themes*",
   "*internationalbudget.org/modules*",
   "*internationalbudget.org/libraries*",
   "*internationalbudget.org/views*",
   "*internationalbudget.org/core*",
-  "*internationalbudget.org/open-budget-survey/country-results*",
   "*internationalbudget.org/fr/open-budget-survey/country-results*",
   "*internationalbudget.org/es/open-budget-survey/country-results*",
   "*internationalbudget.org/pt-pt/open-budget-survey/country-results*",
@@ -44,14 +38,8 @@ PWD = "obs@2021"
 
 [env.dev]
 routes = [
-    "*internationalbudget.org/open-budget-survey/a-note-on-russias-performance-on-the-open-budget-index*",
-  "*internationalbudget.org/letter-from-our-executive-director-on-the-conflict-in-ukraine*",
-
-  "*internationalbudget.org/open-budget-survey",
-  "*internationalbudget.org/open-budget-survey/roadmap-to-61",
-  "*internationalbudget.org/open-budget-survey/rankings",
-  "*internationalbudget.org/open-budget-survey/country-results*",
-  "*internationalbudget.org/open-budget-survey/reports",
+  "*internationalbudget.org/letter-from-our-executive-director-on-the-conflict-in-ukraine",
+  "*internationalbudget.org/open-budget-survey*",
   "*internationalbudget.org/sites/default*",
   "*internationalbudget.org/themes*",
   "*internationalbudget.org/modules*",
@@ -59,8 +47,22 @@ routes = [
   "*internationalbudget.org/views*",
   "*internationalbudget.org/core*",
   "*internationalbudget.org/fr/open-budget-survey/country-results*",
-  "*internationalbudget.org/open-budget-survey/calculator",
-  "*internationalbudget.org/open-budget-survey/open-budget-survey-*",
+  "*internationalbudget.org/es/open-budget-survey/country-results*",
+  "*internationalbudget.org/pt-pt/open-budget-survey/country-results*",
+  "*internationalbudget.org/ru/open-budget-survey/country-results*",
+  "*internationalbudget.org/ar/open-budget-survey/country-results*",
+  "*internationalbudget.org/ro/open-budget-survey/country-results*",
+  "*internationalbudget.org/kk/open-budget-survey/country-results*",
+  "*internationalbudget.org/prs/open-budget-survey/country-results*",
+  "*internationalbudget.org/ps/open-budget-survey/country-results*",
+  "*internationalbudget.org/sl/open-budget-survey/country-results*",
+  "*internationalbudget.org/mn/open-budget-survey/country-results*",
+  "*internationalbudget.org/ne/open-budget-survey/country-results*",
+  "*internationalbudget.org/ka/open-budget-survey/country-results*",
+  "*internationalbudget.org/id/open-budget-survey/country-results*",
+  "*internationalbudget.org/mk/open-budget-survey/country-results*",
+  "*internationalbudget.org/hy/open-budget-survey/country-results*",
+  "*internationalbudget.org/uk/open-budget-survey/country-results*",
 ]
 
 [env.dev.vars]

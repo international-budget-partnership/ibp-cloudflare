@@ -3,25 +3,51 @@ addEventListener("fetch", (event) => event.respondWith(handleRequest(event.reque
 async function handleRequest(request) {
   const drupal_host = "https://live-international-budget-partnership.pantheonsite.io";
   const wp_host = "https://www2.internationalbudget.org";
-  const wp_paths = ["/wp-content", "/open-budget-survey", "/open-budget-survey/roadmap-to-61", "/open-budget-survey/open-budget-survey-", "/letter-from-our-executive-director-on-the-conflict-in-ukraine", "/open-budget-survey/a-note-on-russias-performance-on-the-open-budget-index"];
-  const drupal_paths = ["/open-budget-survey/calculator", "/open-budget-survey/rankings", "/open-budget-survey/country-results", "/open-budget-survey/reports", "/sites/default", "/themes", "/modules", "/core", "/libraries", "/views"];
-  const url = new URL(request.url);
+  const wp_paths = [
+    "/wp-content",
+    "/open-budget-survey",
+    "/open-budget-survey/roadmap-to-61",
+    "/open-budget-survey/open-budget-survey-",
+    "/open-budget-survey/a-note-on-russias-performance-on-the-open-budget-index",
+    "/open-budget-survey/sector-budget-transparency",
+    "/letter-from-our-executive-director-on-the-conflict-in-ukraine",
+  ];
+  const drupal_paths = [
+    "/open-budget-survey/calculator",
+    "/open-budget-survey/rankings",
+    "/open-budget-survey/country-results",
+    "/open-budget-survey/reports",
+    "/sites/default",
+    "/themes",
+    "/modules",
+    "/core",
+    "/libraries",
+    "/views",
+  ];
+  let url = new URL(request.url);
   let destination_url = url.toString();
+  let url_path = url.pathname.replace(/\/$/, "");
   let authenticate = false;
 
   for (let i = 0; i < wp_paths.length; i++) {
-    if (url.pathname.indexOf(wp_paths[i]) > -1) {
-      if (url.pathname == "/open-budget-survey/roadmap-to-61") {
-        authenticate = true;
-        destination_url = `${wp_host}/roadmap-to-61/`;
-      } else if (url.pathname.indexOf("/open-budget-survey/open-budget-survey-") > -1) {
-        authenticate = true;
-        destination_url = url.pathname == "/open-budget-survey/open-budget-survey-2021" ? `${wp_host}/open-budget-survey-2021` : drupal_host + url.pathname + url.search;
-      } else if (url.pathname.replace(/\/$/, "") == "/open-budget-survey") {
-        authenticate = true;
-        destination_url = `${wp_host}`;
+    if (url_path.indexOf(wp_paths[i]) > -1) {
+      if (url_path.indexOf("/open-budget-survey") > -1) {
+        if (
+          url_path == "/open-budget-survey/roadmap-to-61" ||
+          url_path == "/open-budget-survey/a-note-on-russias-performance-on-the-open-budget-index" ||
+          url_path == "/open-budget-survey/sector-budget-transparency"
+        ) {
+          authenticate = true;
+          destination_url = wp_host + url_path.replace("/open-budget-survey", "");
+        } else if (url_path.indexOf("/open-budget-survey/open-budget-survey-") > -1) {
+          authenticate = true;
+          destination_url = url_path == "/open-budget-survey/open-budget-survey-2021" ? `${wp_host}/open-budget-survey-2021` : drupal_host + url_path + url.search;
+        } else if (url_path == "/open-budget-survey") {
+          authenticate = true;
+          destination_url = wp_host;
+        }
       } else {
-        destination_url = wp_host + url.pathname + url.search;
+        destination_url = wp_host + url_path + url.search;
       }
     }
   }
