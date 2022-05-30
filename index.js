@@ -8,6 +8,12 @@ async function handleRequest(request) {
     "/open-budget-survey",
     "/open-budget-survey/roadmap-to-61",
     "/open-budget-survey/open-budget-survey-",
+    "/open-budget-survey/regional-report-",
+    "/open-budget-survey/encuesta-de-presupuesto-abierto-",
+    "/open-budget-survey/enquete-sur-le-budget-ouvert-",
+    "/open-budget-survey/inquerito-sobre-o-orcamento-aberto-",
+    "/open-budget-survey/obzor-otkrytosti-byudzheta-",
+    "/open-budget-survey/msh-almwaznt-almftwht-lam-",
     "/open-budget-survey/a-note-on-russias-performance-on-the-open-budget-index",
     "/open-budget-survey/sector-budget-transparency",
     "/letter-from-our-executive-director-on-the-conflict-in-ukraine",
@@ -29,6 +35,10 @@ async function handleRequest(request) {
   let url_path = url.pathname.replace(/\/$/, "");
   let authenticate = false;
 
+  if (url.hostname == "www2.internationalbudget.org") {
+    return new Response("", { status: 301, headers: { Location: "https://internationalbudget.org/open-budget-survey" } });
+  }
+
   for (let i = 0; i < wp_paths.length; i++) {
     if (url_path.indexOf(wp_paths[i]) > -1) {
       if (url_path.indexOf("/open-budget-survey") > -1) {
@@ -39,7 +49,15 @@ async function handleRequest(request) {
         ) {
           authenticate = true;
           destination_url = wp_host + url_path.replace("/open-budget-survey", "");
-        } else if (url_path.indexOf("/open-budget-survey/open-budget-survey-") > -1) {
+        } else if (
+          url_path.indexOf("/open-budget-survey/open-budget-survey-") > -1 ||
+          url_path.indexOf("/open-budget-survey/encuesta-de-presupuesto-abierto-") > -1 ||
+          url_path.indexOf("/open-budget-survey/enquete-sur-le-budget-ouvert-") > -1 ||
+          url_path.indexOf("/open-budget-survey/inquerito-sobre-o-orcamento-aberto-") > -1 ||
+          url_path.indexOf("/open-budget-survey/obzor-otkrytosti-byudzheta-") > -1 ||
+          url_path.indexOf("/open-budget-survey/msh-almwaznt-almftwht-lam-") > -1 ||
+          url_path.indexOf("/open-budget-survey/regional-report-") > -1
+        ) {
           authenticate = true;
           destination_url = url_path == "/open-budget-survey/open-budget-survey-2021" ? `${wp_host}/open-budget-survey-2021` : drupal_host + url_path + url.search;
         } else if (url_path == "/open-budget-survey") {
