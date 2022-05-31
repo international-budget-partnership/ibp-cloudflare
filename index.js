@@ -86,26 +86,26 @@ async function handleRequest(request) {
     }
   }
 
-  if (authenticate) {
-    if (!request.headers.has("authorization")) {
-      return _unauthorized("Please provide a Username and Password to access this page.");
-    }
+  // if (authenticate) {
+  //   if (!request.headers.has("authorization")) {
+  //     return _unauthorized("Please provide a Username and Password to access this page.");
+  //   }
 
-    const auth = request.headers.get("authorization");
-    const credentials = _authorize(auth);
+  //   const auth = request.headers.get("authorization");
+  //   const credentials = _authorize(auth);
 
-    if (credentials[0] !== USER || credentials[1] !== PWD) {
-      return _unauthorized("Invalid password. Please try later.");
-    }
+  //   if (credentials[0] !== USER || credentials[1] !== PWD) {
+  //     return _unauthorized("Invalid password. Please try later.");
+  //   }
 
-    if (destination_url && url.protocol === "http:") {
-      https_url = url.toString().replace("http://", "https://");
-      return new Response("", {
-        status: 301,
-        headers: { Location: https_url },
-      });
-    }
-  }
+  //   if (destination_url && url.protocol === "http:") {
+  //     https_url = url.toString().replace("http://", "https://");
+  //     return new Response("", {
+  //       status: 301,
+  //       headers: { Location: https_url },
+  //     });
+  //   }
+  // }
 
   if (request.method == "GET") {
     const response = await fetch(
