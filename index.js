@@ -19,7 +19,6 @@ async function handleRequest(request) {
     "/letter-from-our-executive-director-on-the-conflict-in-ukraine",
   ];
   const drupal_paths = [
-    "/open-budget-survey/calculator",
     "/open-budget-survey/rankings",
     "/open-budget-survey/country-results",
     "/open-budget-survey/reports",
@@ -35,9 +34,9 @@ async function handleRequest(request) {
   let url_path = url.pathname.replace(/\/$/, "");
   let authenticate = false;
 
-  if (url.hostname == "www2.internationalbudget.org") {
-    return new Response("", { status: 301, headers: { Location: "https://internationalbudget.org/open-budget-survey" } });
-  }
+  // if (url.hostname == "www2.internationalbudget.org") {
+  //   return new Response("", { status: 301, headers: { Location: "https://internationalbudget.org/open-budget-survey" } });
+  // }
 
   for (let i = 0; i < wp_paths.length; i++) {
     if (url_path.indexOf(wp_paths[i]) > -1) {
@@ -47,7 +46,7 @@ async function handleRequest(request) {
           url_path == "/open-budget-survey/a-note-on-russias-performance-on-the-open-budget-index" ||
           url_path == "/open-budget-survey/sector-budget-transparency"
         ) {
-          authenticate = true;
+          // authenticate = true;
           destination_url = wp_host + url_path.replace("/open-budget-survey", "");
         } else if (
           url_path.indexOf("/open-budget-survey/open-budget-survey-") > -1 ||
@@ -58,10 +57,10 @@ async function handleRequest(request) {
           url_path.indexOf("/open-budget-survey/msh-almwaznt-almftwht-lam-") > -1 ||
           url_path.indexOf("/open-budget-survey/regional-report-") > -1
         ) {
-          authenticate = true;
+          // authenticate = true;
           destination_url = url_path == "/open-budget-survey/open-budget-survey-2021" ? `${wp_host}/open-budget-survey-2021` : drupal_host + url_path + url.search;
         } else if (url_path == "/open-budget-survey") {
-          authenticate = true;
+          // authenticate = true;
           destination_url = wp_host;
         }
       } else {
@@ -72,17 +71,13 @@ async function handleRequest(request) {
 
   for (let i = 0; i < drupal_paths.length; i++) {
     if (url.pathname.indexOf(drupal_paths[i]) > -1) {
-      if (url.pathname == "/open-budget-survey/rankings") {
-        authenticate = true;
-      } else if (url.pathname.indexOf("country-results/2021")) {
-        authenticate = true;
-      }
+      // if (url.pathname == "/open-budget-survey/rankings") {
+      //   authenticate = true;
+      // } else if (url.pathname.indexOf("country-results/2021")) {
+      //   authenticate = true;
+      // }
 
-      if (url.pathname == "/open-budget-survey/calculator") {
-        destination_url = "https://obs-data-explorer.herokuapp.com/#calculator";
-      } else {
-        destination_url = drupal_host + url.pathname + url.search;
-      }
+      destination_url = drupal_host + url.pathname + url.search;
     }
   }
 
@@ -117,7 +112,7 @@ async function handleRequest(request) {
       })
     );
 
-    let new_response = new Response(response.body);
+    let new_response = new Response(response.body, response);
     new_response.headers.set("X-Robots-Tag", "all");
 
     return new_response;
@@ -145,20 +140,20 @@ async function handleRequest(request) {
   }
 }
 
-function _authorize(auth) {
-  const parts = auth.split(" ");
-  const plain_auth = atob(parts[1]);
-  const credentials = plain_auth.split(":");
+// function _authorize(auth) {
+//   const parts = auth.split(" ");
+//   const plain_auth = atob(parts[1]);
+//   const credentials = plain_auth.split(":");
 
-  return credentials;
-}
+//   return credentials;
+// }
 
-function _unauthorized(message) {
-  let response = new Response(message, {
-    status: 401,
-  });
+// function _unauthorized(message) {
+//   let response = new Response(message, {
+//     status: 401,
+//   });
 
-  response.headers.set("WWW-Authenticate", `Basic realm="${REALM}"`);
+//   response.headers.set("WWW-Authenticate", `Basic realm="${REALM}"`);
 
-  return response;
-}
+//   return response;
+// }
