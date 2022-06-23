@@ -17,6 +17,7 @@ async function handleRequest(request) {
     "/open-budget-survey/a-note-on-russias-performance-on-the-open-budget-index",
     "/open-budget-survey/sector-budget-transparency",
     "/letter-from-our-executive-director-on-the-conflict-in-ukraine",
+    "/annualreport2021",
   ];
   const drupal_paths = [
     "/open-budget-survey/rankings",
@@ -32,11 +33,7 @@ async function handleRequest(request) {
   let url = new URL(request.url);
   let destination_url = url.toString();
   let url_path = url.pathname.replace(/\/$/, "");
-  let authenticate = false;
-
-  // if (url.hostname == "www2.internationalbudget.org") {
-  //   return new Response("", { status: 301, headers: { Location: "https://internationalbudget.org/open-budget-survey" } });
-  // }
+  // let authenticate = false;
 
   for (let i = 0; i < wp_paths.length; i++) {
     if (url_path.indexOf(wp_paths[i]) > -1) {
@@ -81,6 +78,14 @@ async function handleRequest(request) {
     }
   }
 
+  if (destination_url && url.protocol === "http:") {
+    https_url = url.toString().replace("http://", "https://");
+    return new Response("", {
+      status: 301,
+      headers: { Location: https_url },
+    });
+  }
+
   // if (authenticate) {
   //   if (!request.headers.has("authorization")) {
   //     return _unauthorized("Please provide a Username and Password to access this page.");
@@ -91,14 +96,6 @@ async function handleRequest(request) {
 
   //   if (credentials[0] !== USER || credentials[1] !== PWD) {
   //     return _unauthorized("Invalid password. Please try later.");
-  //   }
-
-  //   if (destination_url && url.protocol === "http:") {
-  //     https_url = url.toString().replace("http://", "https://");
-  //     return new Response("", {
-  //       status: 301,
-  //       headers: { Location: https_url },
-  //     });
   //   }
   // }
 
