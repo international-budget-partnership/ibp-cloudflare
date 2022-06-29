@@ -5,6 +5,7 @@ account_id="e7ba07fb5b7b19ad68a4607943793353"
 zone_id="2b00a637e3e451adb22f42e2afc84251"
 routes = [
   "*internationalbudget.org/letter-from-our-executive-director-on-the-conflict-in-ukraine",
+  "*internationalbudget.org/a-new-era-for-international-budget-partnership",
   "*internationalbudget.org/annualreport2021",
   "*internationalbudget.org/open-budget-survey*",
   "*internationalbudget.org/sites/default*",
