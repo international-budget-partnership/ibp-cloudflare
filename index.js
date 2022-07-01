@@ -17,7 +17,7 @@ async function handleRequest(request) {
     "/open-budget-survey/a-note-on-russias-performance-on-the-open-budget-index",
     "/open-budget-survey/sector-budget-transparency",
     "/letter-from-our-executive-director-on-the-conflict-in-ukraine",
-    "/a-new-era-for-international-budget-partnership",
+    "/the-search-for-a-new-executive-director",
     "/annualreport2021",
   ];
   const drupal_paths = [
