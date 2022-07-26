@@ -34,7 +34,14 @@ async function handleRequest(request) {
   let url = new URL(request.url);
   let destination_url = url.toString();
   let url_path = url.pathname.replace(/\/$/, "");
-  // let authenticate = false;
+
+  if (destination_url.indexOf("www.") > -1) {
+    let non_www_url = url.toString().replace("www.", "");
+    return new Response("", {
+      status: 301,
+      headers: { Location: non_www_url },
+    });
+  }
 
   for (let i = 0; i < wp_paths.length; i++) {
     if (url_path.indexOf(wp_paths[i]) > -1) {
@@ -44,7 +51,6 @@ async function handleRequest(request) {
           url_path == "/open-budget-survey/a-note-on-russias-performance-on-the-open-budget-index" ||
           url_path == "/open-budget-survey/sector-budget-transparency"
         ) {
-          // authenticate = true;
           destination_url = wp_host + url_path.replace("/open-budget-survey", "");
         } else if (
           url_path.indexOf("/open-budget-survey/open-budget-survey-") > -1 ||
@@ -55,10 +61,8 @@ async function handleRequest(request) {
           url_path.indexOf("/open-budget-survey/msh-almwaznt-almftwht-lam-") > -1 ||
           url_path.indexOf("/open-budget-survey/regional-report-") > -1
         ) {
-          // authenticate = true;
           destination_url = url_path == "/open-budget-survey/open-budget-survey-2021" ? `${wp_host}/open-budget-survey-2021` : drupal_host + url_path + url.search;
         } else if (url_path == "/open-budget-survey") {
-          // authenticate = true;
           destination_url = wp_host;
         }
       } else {
@@ -69,12 +73,6 @@ async function handleRequest(request) {
 
   for (let i = 0; i < drupal_paths.length; i++) {
     if (url.pathname.indexOf(drupal_paths[i]) > -1) {
-      // if (url.pathname == "/open-budget-survey/rankings") {
-      //   authenticate = true;
-      // } else if (url.pathname.indexOf("country-results/2021")) {
-      //   authenticate = true;
-      // }
-
       destination_url = drupal_host + url.pathname + url.search;
     }
   }
@@ -86,19 +84,6 @@ async function handleRequest(request) {
       headers: { Location: https_url },
     });
   }
-
-  // if (authenticate) {
-  //   if (!request.headers.has("authorization")) {
-  //     return _unauthorized("Please provide a Username and Password to access this page.");
-  //   }
-
-  //   const auth = request.headers.get("authorization");
-  //   const credentials = _authorize(auth);
-
-  //   if (credentials[0] !== USER || credentials[1] !== PWD) {
-  //     return _unauthorized("Invalid password. Please try later.");
-  //   }
-  // }
 
   if (request.method == "GET") {
     const response = await fetch(
@@ -137,21 +122,3 @@ async function handleRequest(request) {
     return new_response;
   }
 }
-
-// function _authorize(auth) {
-//   const parts = auth.split(" ");
-//   const plain_auth = atob(parts[1]);
-//   const credentials = plain_auth.split(":");
-
-//   return credentials;
-// }
-
-// function _unauthorized(message) {
-//   let response = new Response(message, {
-//     status: 401,
-//   });
-
-//   response.headers.set("WWW-Authenticate", `Basic realm="${REALM}"`);
-
-//   return response;
-// }
