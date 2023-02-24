@@ -28,6 +28,7 @@ routes = [
   { pattern="*internationalbudget.org/ru/open-budget-survey/country-results*", zone_id="2b00a637e3e451adb22f42e2afc84251" },
   { pattern="*internationalbudget.org/sl/open-budget-survey/country-results*", zone_id="2b00a637e3e451adb22f42e2afc84251" },
   { pattern="*internationalbudget.org/uk/open-budget-survey/country-results*", zone_id="2b00a637e3e451adb22f42e2afc84251" },
+  { pattern="*internationalbudget.org/opening-budgets/open-budget-initiative/open-budget-survey/country-info*", zone_id="2b00a637e3e451adb22f42e2afc84251" },
 ]
 [vars]
 ENVIRONMENT = "production"
@@ -58,6 +59,7 @@ routes = [
   { pattern="*internationalbudget.org/mk/open-budget-survey/country-results*", zone_id="2b00a637e3e451adb22f42e2afc84251" },
   { pattern="*internationalbudget.org/hy/open-budget-survey/country-results*", zone_id="2b00a637e3e451adb22f42e2afc84251" },
   { pattern="*internationalbudget.org/uk/open-budget-survey/country-results*", zone_id="2b00a637e3e451adb22f42e2afc84251" },
+  { pattern="*internationalbudget.org/opening-budgets/open-budget-initiative/open-budget-survey/country-info*", zone_id="2b00a637e3e451adb22f42e2afc84251" },
 ]
 
 [env.dev.vars]

@@ -2,25 +2,6 @@ addEventListener("fetch", (event) => event.respondWith(handleRequest(event.reque
 
 async function handleRequest(request) {
   const drupal_host = "https://live-international-budget-partnership.pantheonsite.io";
-  const wp_host = "https://www2.internationalbudget.org";
-  // const wp_paths = [
-  //   "/wp-content",
-  //   "/open-budget-survey",
-  //   "/open-budget-survey/roadmap-to-61",
-  //   "/open-budget-survey/open-budget-survey-",
-  //   "/open-budget-survey/regional-report-",
-  //   "/open-budget-survey/encuesta-de-presupuesto-abierto-",
-  //   "/open-budget-survey/enquete-sur-le-budget-ouvert-",
-  //   "/open-budget-survey/inquerito-sobre-o-orcamento-aberto-",
-  //   "/open-budget-survey/obzor-otkrytosti-byudzheta-",
-  //   "/open-budget-survey/msh-almwaznt-almftwht-lam-",
-  //   "/open-budget-survey/a-note-on-russias-performance-on-the-open-budget-index",
-  //   "/open-budget-survey/sector-budget-transparency",
-  //   "/letter-from-our-executive-director-on-the-conflict-in-ukraine",
-  //   "/ru-letter-from-our-executive-director-on-the-conflict-in-ukraine",
-  //   "/the-search-for-a-new-executive-director",
-  //   "/annualreport2021",
-  // ];
   const drupal_paths = [
     "/open-budget-survey/rankings",
     "/open-budget-survey/country-results",
@@ -53,42 +34,78 @@ async function handleRequest(request) {
   let url = new URL(request.url);
   let destination_url = url.toString();
   let url_path = url.pathname.replace(/\/$/, "");
+  let params = url.searchParams;
+
+  if (destination_url && url.protocol === "http:") {
+    https_url = url.toString().replace("http://", "https://");
+    return new Response("", {
+      status: 301,
+      headers: { Location: https_url },
+    });
+  }
 
   if (destination_url.indexOf("www.") > -1) {
     let non_www_url = url.toString().replace("www.", "");
-    return Response.redirect(non_www_url, 301);
-    // return new Response("", {
-    //   status: 301,
-    //   headers: { Location: non_www_url },
-    // });
+    return new Response("", {
+      status: 301,
+      headers: { Location: non_www_url },
+    });
   }
-  // for (let i = 0; i < wp_paths.length; i++) {
-  //   if (url_path.indexOf(wp_paths[i]) > -1) {
-  //     if (url_path.indexOf("/open-budget-survey") > -1) {
-  //       if (
-  //         url_path == "/open-budget-survey/roadmap-to-61" ||
-  //         url_path == "/open-budget-survey/a-note-on-russias-performance-on-the-open-budget-index" ||
-  //         url_path == "/open-budget-survey/sector-budget-transparency"
-  //       ) {
-  //         destination_url = wp_host + url_path.replace("/open-budget-survey", "");
-  //       } else if (
-  //         url_path.indexOf("/open-budget-survey/open-budget-survey-") > -1 ||
-  //         url_path.indexOf("/open-budget-survey/encuesta-de-presupuesto-abierto-") > -1 ||
-  //         url_path.indexOf("/open-budget-survey/enquete-sur-le-budget-ouvert-") > -1 ||
-  //         url_path.indexOf("/open-budget-survey/inquerito-sobre-o-orcamento-aberto-") > -1 ||
-  //         url_path.indexOf("/open-budget-survey/obzor-otkrytosti-byudzheta-") > -1 ||
-  //         url_path.indexOf("/open-budget-survey/msh-almwaznt-almftwht-lam-") > -1 ||
-  //         url_path.indexOf("/open-budget-survey/regional-report-") > -1
-  //       ) {
-  //         destination_url = url_path == "/open-budget-survey/open-budget-survey-2021" ? `${wp_host}/open-budget-survey-2021` : drupal_host + url_path + url.search;
-  //       } else if (url_path == "/open-budget-survey") {
-  //         destination_url = wp_host;
-  //       }
-  //     } else {
-  //       destination_url = wp_host + url_path + url.search;
-  //     }
-  //   }
-  // }
+
+  if (url_path.indexOf("data-documents") !== -1 || url_path.indexOf("downloads") !== -1) {
+    return new Response("", {
+      status: 301,
+      headers: {
+        Location: "https://survey.internationalbudget.org/#download",
+      },
+    });
+  }
+
+  if (url_path == "/open-budget-survey/open-budget-index-rankings") {
+    return new Response("", {
+      status: 301,
+      headers: { Location: url.toString().replace("open-budget-index-rankings", "rankings") },
+    });
+  }
+
+  if (url_path == "/open-budget-survey/results-by-country") {
+    return new Response("", {
+      status: 301,
+      headers: { Location: url.toString().replace("results-by-country", "country-results") },
+    });
+  }
+
+  if (params.get("country")) {
+    let countries = {
+      bf: "burkina-faso",
+      cn: "china",
+      do: "dominican-republic",
+      hn: "honduras",
+      kr: "south-korea",
+      lk: "sri-lanka",
+      lr: "liberia",
+      mm: "myanmar",
+      ml: "mali",
+      mn: "mongolia",
+      mx: "mexico",
+      mz: "mozambique",
+      ng: "nigeria",
+      nz: "new-zealand",
+      pg: "papua-new-guinea",
+      pk: "pakistan",
+      st: "sao-tome-e-principe",
+      sv: "el-salvador",
+      tn: "tunisia",
+      vn: "vietnam",
+    };
+
+    return new Response("", {
+      status: 301,
+      headers: {
+        Location: `https://internationalbudget.org/open-budget-survey/country-results/2021/${countries[params.get("country")]}`,
+      },
+    });
+  }
 
   for (let i = 0; i < drupal_paths.length; i++) {
     if (url.pathname.indexOf(drupal_paths[i]) > -1) {
@@ -143,60 +160,6 @@ async function handleRequest(request) {
             }
           }
         }
-
-        // return new Response(url_path.indexOf("/es"));
-
-        // let countries_map = {
-        //   aljzayr: "algeria",
-        //   maroc: "morocco",
-        //   rossiya: "russia",
-        //   kazakstan: "kazakhstan",
-        //   algerie: "algeria",
-        //   azerbaydzhan: "azerbaijan",
-        //   almghrb: "morroco",
-        //   "kyrgyzskaya-respublika": "kyrgyzskaya-respublika",
-        //   lbnan: "lebanon",
-        //   misr: "eygpt",
-        //   brasil: "brazil",
-        //   "mongol-uls": "mongolia",
-        //   alardn: "jordan",
-        //   liban: "lebanon",
-        //   sakartvelo: "georgia",
-        //   cameroun: "cameroon",
-        //   tchad: "chad",
-        //   ukraina: "ukraine",
-        //   ukrayina: "ukraine",
-        //   naepaala: "nepal",
-        //   "severna-makedonija": "north-macedonia",
-        //   "republique-democratique-du-congo": "democratic-republic-congo",
-        //   "guinea-ecuatorial": "equatorial-guinea",
-        //   twns: "tunisia",
-        //   "republica-dominicana": "dominican-republic",
-        //   "almmlkt-alrbyt-alswdyt": "saudi-arabia",
-        //   mocambique: "mozambique",
-        //   aalymn: "yemen",
-        //   aalraq: "iraq",
-        //   tunisie: "tunisia",
-        //   slovenija: "slovenia",
-        //   "republica-democratica-de-timor-leste": "timor-leste",
-        //   espana: "spain",
-        //   tadzhikistan: "tajikistan",
-        //   qtr: "qatar",
-        //   alswdan: "sudan",
-        //   "jzr-alqmr": "comoros",
-        //   comores: "comoros",
-        //   magyarorszag: "hungary",
-        //   "hayastani-hanrapetowtyown": "armenia",
-        //   afghanstan: "afghanistan",
-        // };
-
-        // let countries = Object.keys(countries_map);
-
-        // for (let j = 0; j < countries.length; j++) {
-        //   if (url.pathname.indexOf(countries[j]) > -1) {
-        //     destination_url = destination_url.replace(countries[j], countries_map[countries[j]]);
-        //   }
-        // }
       }
     }
   }
@@ -210,29 +173,6 @@ async function handleRequest(request) {
     url_path.indexOf("/open-budget-survey/regional-report-") > -1
   ) {
     destination_url = drupal_host + url.pathname + url.search;
-  }
-
-  if (url_path == "/open-budget-survey/open-budget-index-rankings") {
-    return new Response("", {
-      status: 301,
-      headers: { Location: url.toString().replace("open-budget-index-rankings", "rankings") },
-    });
-  }
-
-  if (url_path == "/open-budget-survey/results-by-country") {
-    return new Response("", {
-      status: 301,
-      headers: { Location: url.toString().replace("results-by-country", "country-results") },
-    });
-  }
-
-  if (destination_url && url.protocol === "http:") {
-    https_url = url.toString().replace("http://", "https://");
-    return new Response.redirect(https_url, 301);
-    // return new Response("", {
-    //   status: 301,
-    //   headers: { Location: https_url },
-    // });
   }
 
   if (request.method == "GET") {
