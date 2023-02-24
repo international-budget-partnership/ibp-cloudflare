@@ -1,7 +1,6 @@
 addEventListener("fetch", (event) => event.respondWith(handleRequest(event.request)));
 
 async function handleRequest(request) {
-  const drupal_host = "https://live-international-budget-partnership.pantheonsite.io";
   const drupal_paths = [
     "/open-budget-survey/rankings",
     "/open-budget-survey/country-results",
@@ -31,6 +30,33 @@ async function handleRequest(request) {
     "/libraries",
     "/views",
   ];
+
+  let countries = {
+    bf: "burkina-faso",
+    cn: "china",
+    do: "dominican-republic",
+    hn: "honduras",
+    kh: "combodia",
+    kr: "south-korea",
+    lk: "sri-lanka",
+    lr: "liberia",
+    mm: "myanmar",
+    ml: "mali",
+    mn: "mongolia",
+    mx: "mexico",
+    mz: "mozambique",
+    ng: "nigeria",
+    nz: "new-zealand",
+    pg: "papua-new-guinea",
+    pk: "pakistan",
+    st: "sao-tome-e-principe",
+    sv: "el-salvador",
+    td: "chad",
+    tn: "tunisia",
+    vn: "vietnam",
+  };
+
+  let drupal_host = "https://live-international-budget-partnership.pantheonsite.io";
   let url = new URL(request.url);
   let destination_url = url.toString();
   let url_path = url.pathname.replace(/\/$/, "");
@@ -75,34 +101,38 @@ async function handleRequest(request) {
     });
   }
 
-  if (params.get("country")) {
-    let countries = {
-      bf: "burkina-faso",
-      cn: "china",
-      do: "dominican-republic",
-      hn: "honduras",
-      kr: "south-korea",
-      lk: "sri-lanka",
-      lr: "liberia",
-      mm: "myanmar",
-      ml: "mali",
-      mn: "mongolia",
-      mx: "mexico",
-      mz: "mozambique",
-      ng: "nigeria",
-      nz: "new-zealand",
-      pg: "papua-new-guinea",
-      pk: "pakistan",
-      st: "sao-tome-e-principe",
-      sv: "el-salvador",
-      tn: "tunisia",
-      vn: "vietnam",
+  if (url_path == "/opening-budgets/open-budget-initiative/open-budget-survey/country-info" && !params.get("country")) {
+    return new Response("", {
+      status: 301,
+      headers: {
+        Location: "https://internationalbudget.org/open-budget-survey/country-results",
+      },
+    });
+  }
+
+  if (url_path.indexOf("/who-does-budget-work/findgroup/group-data") !== -1) {
+    let code = params.get("country");
+    let country_post_ids = {
+      kh: 5797,
+      ml: 5808,
+      td: 5845,
     };
 
     return new Response("", {
       status: 301,
       headers: {
-        Location: `https://internationalbudget.org/open-budget-survey/country-results/2021/${countries[params.get("country")]}`,
+        Location: `https://internationalbudget.org/network-directory/?_sfm_country=${country_post_ids[code]}`,
+      },
+    });
+  }
+
+  if (params.get("country") && url_path.indexOf("/opening-budgets/open-budget-initiative/open-budget-survey/country-info") !== -1) {
+    let code = params.get("country");
+
+    return new Response("", {
+      status: 301,
+      headers: {
+        Location: `https://internationalbudget.org/open-budget-survey/country-results/2021/${countries[code]}`,
       },
     });
   }
