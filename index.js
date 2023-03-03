@@ -23,6 +23,7 @@ async function handleRequest(request) {
     "/sl/open-budget-survey/country-results",
     "/uk/open-budget-survey/country-results",
     "/open-budget-survey/reports",
+    "/open-budget-survey/open-budget-survey-2021-",
     "/sites/default",
     "/themes",
     "/modules",
