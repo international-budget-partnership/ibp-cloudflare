@@ -142,7 +142,7 @@ async function handleRequest(request) {
     if (url.pathname.indexOf(drupal_paths[i]) > -1) {
       destination_url = drupal_host + url.pathname + url.search;
 
-      if (drupal_paths[i].indexOf("/open-budget-survey/country-results") !== -1) {
+      if (url_path.indexOf("/open-budget-survey") == 0) {
         let cmap = [
           { en: "afghanistan", ps: "afghanstan", prs: "afghanstan" },
           { en: "algeria", fr: "algerie", ar: "aljzayr" },
@@ -181,7 +181,7 @@ async function handleRequest(request) {
 
         for (const country in cmap) {
           for (const lang in cmap[country]) {
-            if (url_path.indexOf(cmap[country][lang]) !== -1 && url_path.indexOf(`/${lang}`) !== 0 && lang !== "en") {
+            if (url_path.indexOf(cmap[country][lang]) > -1 && lang !== "en") {
               return new Response("", {
                 status: 301,
                 headers: {
