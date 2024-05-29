@@ -2,6 +2,8 @@ addEventListener("fetch", (event) => event.respondWith(handleRequest(event.reque
 
 async function handleRequest(request) {
   const drupal_paths = [
+    "/open-budget-survey/calculator",
+    "/open-budget-survey/download",
     "/open-budget-survey/rankings",
     "/open-budget-survey/country-results",
     "/ar/open-budget-survey/country-results",
@@ -24,12 +26,14 @@ async function handleRequest(request) {
     "/uk/open-budget-survey/country-results",
     "/open-budget-survey/reports",
     "/open-budget-survey/open-budget-survey-2021-",
+    "/open-budget-survey/open-budget-survey-2023-",
     "/sites/default",
     "/themes",
     "/modules",
     "/core",
     "/libraries",
     "/views",
+    "/get-map-data",
   ];
 
   let countries = {
@@ -79,11 +83,11 @@ async function handleRequest(request) {
     });
   }
 
-  if (url_path.indexOf("data-documents") !== -1 || url_path.indexOf("downloads") !== -1) {
+  if (url_path.indexOf("data-documents") !== -1) {
     return new Response("", {
       status: 301,
       headers: {
-        Location: "https://survey.internationalbudget.org/#download",
+        Location: "https://internationalbudget.org/open-budget-survey/download",
       },
     });
   }
@@ -159,7 +163,7 @@ async function handleRequest(request) {
           { en: "hungary", hu: "magyarorszag" },
           { en: "iraq", ar: "aalraq" },
           { en: "jordan", ar: "alardn" },
-          { en: "kazakstan", ru: "kazakhstan", kk: "kazakstan" },
+          { en: "kazakhstan", kk: "kazakstan" },
           { en: "kyrgyz-republic", ru: "kyrgyzskaya-respublika" },
           { en: "lebanon", ar: "libnan", fr: "liban" },
           { en: "mongolia", mn: "mongol-uls" },

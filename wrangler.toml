@@ -38,7 +38,8 @@ routes = [
   { pattern="*internationalbudget.org/uk/open-budget-survey/country-results*", zone_id="2b00a637e3e451adb22f42e2afc84251" },
   { pattern="*internationalbudget.org/opening-budgets/open-budget-initiative/open-budget-survey/country-info*", zone_id="2b00a637e3e451adb22f42e2afc84251" },
   { pattern="*internationalbudget.org/who-does-budget-work/findgroup/group-data*", zone_id="2b00a637e3e451adb22f42e2afc84251" },
-  { pattern="*internationalbudget.org/open-budget-survey/open-budget-survey-2021-*", zone_id="2b00a637e3e451adb22f42e2afc84251" }
+  { pattern="*internationalbudget.org/open-budget-survey/open-budget-survey-2021-*", zone_id="2b00a637e3e451adb22f42e2afc84251" },
+  { pattern="*internationalbudget.org/get-map-data*", zone_id="2b00a637e3e451adb22f42e2afc84251" }
 ]
 
 [env.production]
@@ -78,5 +79,7 @@ routes = [
   { pattern="*internationalbudget.org/uk/open-budget-survey/country-results*", zone_id="2b00a637e3e451adb22f42e2afc84251" },
   { pattern="*internationalbudget.org/opening-budgets/open-budget-initiative/open-budget-survey/country-info*", zone_id="2b00a637e3e451adb22f42e2afc84251" },
   { pattern="*internationalbudget.org/who-does-budget-work/findgroup/group-data*", zone_id="2b00a637e3e451adb22f42e2afc84251" },
-  { pattern="*internationalbudget.org/open-budget-survey/open-budget-survey-2021-*", zone_id="2b00a637e3e451adb22f42e2afc84251" }
+  { pattern="*internationalbudget.org/open-budget-survey/open-budget-survey-2021-*", zone_id="2b00a637e3e451adb22f42e2afc84251" },
+  { pattern="*internationalbudget.org/open-budget-survey/open-budget-survey-2023-*", zone_id="2b00a637e3e451adb22f42e2afc84251" },
+  { pattern="*internationalbudget.org/get-map-data*", zone_id="2b00a637e3e451adb22f42e2afc84251" }
 ]
