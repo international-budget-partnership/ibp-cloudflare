@@ -62,6 +62,7 @@ async function handleRequest(request) {
   };
 
   let drupal_host = "https://live-international-budget-partnership.pantheonsite.io";
+  // let drupal_host = "https://rajanz2.sg-host.com";
   let url = new URL(request.url);
   let destination_url = url.toString();
   let url_path = url.pathname.replace(/\/$/, "");
