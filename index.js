@@ -201,6 +201,7 @@ async function handleRequest(request) {
   }
 
   if (
+    url_path.indexOf("/open-budget-survey/inquerito-sobreo-orcamento-aberto-") > -1 ||
     url_path.indexOf("/open-budget-survey/encuesta-de-presupuesto-abierto-") > -1 ||
     url_path.indexOf("/open-budget-survey/enquete-sur-le-budget-ouvert-") > -1 ||
     url_path.indexOf("/open-budget-survey/inquerito-sobre-o-orcamento-aberto-") > -1 ||
