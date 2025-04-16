@@ -61,8 +61,8 @@ async function handleRequest(request) {
     vn: "vietnam",
   };
 
-  let drupal_host = "https://live-international-budget-partnership.pantheonsite.io";
-  // let drupal_host = "https://rajanz2.sg-host.com";
+  // let drupal_host = "https://live-international-budget-partnership.pantheonsite.io";
+  let drupal_host = "https://rajanz2.sg-host.com";
   let url = new URL(request.url);
   let destination_url = url.toString();
   let url_path = url.pathname.replace(/\/$/, "");
@@ -207,9 +207,11 @@ async function handleRequest(request) {
     url_path.indexOf("/open-budget-survey/inquerito-sobre-o-orcamento-aberto-") > -1 ||
     url_path.indexOf("/open-budget-survey/obzor-otkrytosti-byudzheta-") > -1 ||
     url_path.indexOf("/open-budget-survey/msh-almwaznt-almftwht-lam-") > -1 ||
+    url_path.indexOf("/open-budget-survey/harnessing-open-budgets-fiscal-stability-sub-saharan-africa") > -1 ||
     url_path.indexOf("/open-budget-survey/strengthening-budget-transparency-and-accountability-middle-east-and-north") > -1 ||
     url_path.indexOf("/open-budget-survey/metodologia-do-inquerito-sobre-o-orcamento-aberto-") > -1 ||
     url_path.indexOf("/open-budget-survey/metodologia-de-la-encuesta-de-presupuesto-abierto-") > -1 ||
+    url_path.indexOf("/open-budget-survey/regional-report-") > -1 ||
     (url_path.indexOf("/open-budget-survey/") > -1 && url_path.includes("-methodologie"))
   ) {
     destination_url = drupal_host + url.pathname + url.search;
