@@ -208,6 +208,7 @@ async function handleRequest(request) {
     url_path.indexOf("/open-budget-survey/obzor-otkrytosti-byudzheta-") > -1 ||
     url_path.indexOf("/open-budget-survey/msh-almwaznt-almftwht-lam-") > -1 ||
     url_path.indexOf("/open-budget-survey/harnessing-open-budgets-fiscal-stability-sub-saharan-africa") > -1 ||
+    url_path.indexOf("/open-budget-survey/les-budgets-ouverts-au-service-de-la-stabilite-financiere-en-afrique") > -1 ||
     url_path.indexOf("/open-budget-survey/strengthening-budget-transparency-and-accountability-middle-east-and-north") > -1 ||
     url_path.indexOf("/open-budget-survey/metodologia-do-inquerito-sobre-o-orcamento-aberto-") > -1 ||
     url_path.indexOf("/open-budget-survey/metodologia-de-la-encuesta-de-presupuesto-abierto-") > -1 ||
