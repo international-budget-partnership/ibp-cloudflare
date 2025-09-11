@@ -212,6 +212,8 @@ async function handleRequest(request) {
     url_path.indexOf("/open-budget-survey/strengthening-budget-transparency-and-accountability-middle-east-and-north") > -1 ||
     url_path.indexOf("/open-budget-survey/metodologia-do-inquerito-sobre-o-orcamento-aberto-") > -1 ||
     url_path.indexOf("/open-budget-survey/metodologia-de-la-encuesta-de-presupuesto-abierto-") > -1 ||
+    url_path.indexOf("/open-budget-survey/transparency-and-accountability-public-financial-management-analysis-and-trend") > -1 ||
+    url_path.indexOf("/open-budget-survey/transparencia-y-rendicion-de-cuentas-en-la-gestion-del-presupuesto-publico") > -1 ||
     url_path.indexOf("/open-budget-survey/regional-report-") > -1 ||
     (url_path.indexOf("/open-budget-survey/") > -1 && url_path.includes("-methodologie"))
   ) {
