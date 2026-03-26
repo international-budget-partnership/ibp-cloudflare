@@ -214,6 +214,7 @@ async function handleRequest(request) {
     url_path.indexOf("/open-budget-survey/metodologia-de-la-encuesta-de-presupuesto-abierto-") > -1 ||
     url_path.indexOf("/open-budget-survey/transparency-and-accountability-public-financial-management-analysis-and-trend") > -1 ||
     url_path.indexOf("/open-budget-survey/transparencia-y-rendicion-de-cuentas-en-la-gestion-del-presupuesto-publico") > -1 ||
+    url_path.indexOf("/open-budget-survey/transparencia-e-prestacao-de-contas-na-gestao-do-orcamento-publico") > -1 ||
     url_path.indexOf("/open-budget-survey/regional-report-") > -1 ||
     (url_path.indexOf("/open-budget-survey/") > -1 && url_path.includes("-methodologie"))
   ) {
@@ -227,7 +228,7 @@ async function handleRequest(request) {
         headers: request.headers,
         referrer: request.referrer,
         referrerPolicy: request.referrerPolicy,
-      })
+      }),
     );
 
     let new_response = new Response(response.body, response);
@@ -243,7 +244,7 @@ async function handleRequest(request) {
         referrerPolicy: request.referrerPolicy,
         body: await request.arrayBuffer(),
         redirect: "follow",
-      })
+      }),
     );
 
     if (typeof response.redirected != "undefined" && response.redirected == true) {
