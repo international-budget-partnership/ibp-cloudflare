@@ -61,7 +61,6 @@ async function handleRequest(request) {
     vn: "vietnam",
   };
 
-  // let drupal_host = "https://live-international-budget-partnership.pantheonsite.io";
   let drupal_host = "https://rajanz2.sg-host.com";
   let url = new URL(request.url);
   let destination_url = url.toString();
@@ -141,6 +140,19 @@ async function handleRequest(request) {
         Location: `https://internationalbudget.org/open-budget-survey/country-results/2021/${countries[code]}`,
       },
     });
+  }
+
+  if (url_path.indexOf("budget-atlas") > -1) {
+    const res = await fetch(
+      new Request("https://internationalbudget.org/budget-atlas.html", {
+        method: request.method,
+        headers: request.headers,
+        referrer: request.referrer,
+        referrerPolicy: request.referrerPolicy,
+      }),
+    );
+
+    return new Response(res.body, res);
   }
 
   for (let i = 0; i < drupal_paths.length; i++) {
